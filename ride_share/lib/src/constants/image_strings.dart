@@ -5,3 +5,4 @@ const String tSignUpScreenImage = "assets/images/signup.png";
 const String tResetPwdScreenImage = "assets/images/reset_pwd.png";
 const String tForgotPwdScreenImage = "assets/images/forgot_pwd.png";
 const String tOTPScreenImage = "assets/images/enter_OTP.png";
+const String tProfilePic = "assets/images/profile.png";
