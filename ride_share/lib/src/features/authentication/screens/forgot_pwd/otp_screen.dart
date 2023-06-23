@@ -139,12 +139,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ride_share/src/constants/colors.dart';
 import 'package:ride_share/src/constants/image_strings.dart';
 
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
+import '../../controllers/otp_controller.dart';
 
 class OTPScreen extends StatelessWidget {
   const OTPScreen({super.key, required this.phoneNo});
@@ -153,7 +155,7 @@ class OTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var otpController = Get.put(OTPController());
+    var otpController = Get.put(OTPController());
     var otp;
     final size = MediaQuery.of(context).size;
     return SafeArea(
@@ -215,8 +217,8 @@ class OTPScreen extends StatelessWidget {
                         cursorColor: tSecondaryColor,
                         focusedBorderColor: tSecondaryColor,
                         onSubmit: (code) {
-                          // otp = code;
-                          // OTPController.instance.verifyOTP(otp);
+                          otp = code;
+                          OTPController.instance.verifyOTP(otp);
                         },
                       ),
                       const SizedBox(
@@ -226,7 +228,7 @@ class OTPScreen extends StatelessWidget {
                         width: size.width * 0.75,
                         child: ElevatedButton(
                           onPressed: () {
-                            // OTPController.instance.verifyOTP(otp);
+                            OTPController.instance.verifyOTP(otp);
                           },
                           child: const Text(
                             "Next",
