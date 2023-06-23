@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ride_share/src/constants/colors.dart';
 import 'package:ride_share/src/constants/image_strings.dart';
 import 'package:ride_share/src/constants/text_strings.dart';
@@ -11,10 +13,41 @@ class ForgotPasswordMailScreen extends StatefulWidget {
 
   @override
   State<ForgotPasswordMailScreen> createState() => _ForgotPasswordMailScreenState();
+
+
 }
+
+
 
 class _ForgotPasswordMailScreenState extends State<ForgotPasswordMailScreen> {
   final controller = TextEditingController();
+
+  @override
+  void dispose(){
+    controller.dispose();
+    super.dispose();
+  }
+  
+  Future passwordReset() async{
+    try{
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: controller.text.trim());
+      showDialog(
+          context: context,
+          builder: (context){
+            return const AlertDialog(
+              content: Text("A passwrod reset link has been sent to your email."),
+            );
+          });
+    } on FirebaseAuthException catch (e){
+      showDialog(
+          context: context,
+          builder: (context){
+            return AlertDialog(
+              content: Text(e.message.toString()),
+            );
+          });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +87,8 @@ class _ForgotPasswordMailScreenState extends State<ForgotPasswordMailScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                              onPressed: () {
-
-                              },
-                              child: const Text("Next")
+                              onPressed: passwordReset(),
+                              child: const Text("Send")
                           ),
                         )
                       ],

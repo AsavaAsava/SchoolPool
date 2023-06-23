@@ -1,11 +1,13 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ride_share/src/constants/text_strings.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
+import '../../../../models/user_model.dart';
 import '../../controllers/signup_controller.dart';
 import '../forgot_pwd/otp_screen.dart';
 
@@ -37,7 +39,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
             children: [
               TextFormField(
                 cursorColor: tSecondaryColor,
-                controller: controller.firstName,
+                controller: controller.fullName,
                 decoration: const InputDecoration(
                   label: Text(tFullName),
                   prefixIcon: Icon(Icons.person_outline_outlined),
@@ -142,25 +144,22 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(7.0))),
                     ),
                     onPressed: () {
-                      Get.to(() => OTPScreen(phoneNo: controller.phoneNo.text.trim()));
+                      // Get.to(() => OTPScreen(phoneNo: controller.phoneNo.text.trim()));
                       // Get.to(() => const OTPScreen());
-                      // if (_formKey.currentState!.validate()) {
-                      //   SignUpController.instance.phoneAuthentication(controller.phoneNo.text.trim());
-                      //   Get.to(() => const OTPScreen());
-                      //   // var now = DateTime.now();
-                      //   // var formatter = DateFormat('dd-MM-yyyy');
-                      //   // String formattedDate = formatter.format(now);
-                      //   //
-                      //   // final user = UserModel(
-                      //   //     email: controller.email.text.trim(),
-                      //   //     password: controller.password.text.trim(),
-                      //   //     fullName: controller.fullName.text.trim(),
-                      //   //     phoneVerified: false,
-                      //   //     joinedOn: formattedDate,
-                      //   // );
-                      //   //
-                      //   // SignUpController.instance.createUser(user);
-                      // }
+                      if (_formKey.currentState!.validate()) {
+                        // SignUpController.instance.phoneAuthentication(controller.phoneNo.text.trim());
+                        // Get.to(() => OTPScreen(phoneNo: controller.phoneNo.text.trim()));
+
+                        final user = UserModel(
+                            email: controller.email.text.trim(),
+                            password: controller.password.text.trim(),
+                            fullName: controller.fullName.text.trim(),
+                            emailVerified: false,
+                            phoneNo: controller.phoneNo.text.trim(),
+                        );
+
+                        SignUpController.instance.createUser(user);
+                      }
                     },
                     child: Text(tSignup.toUpperCase())),
               ),
