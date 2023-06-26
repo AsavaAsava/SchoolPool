@@ -7,6 +7,9 @@
 		<key>CFBundleDisplayName</key>
 		<string>Ride Share</string>
 		<key>CFBundleExecutable</key>
+		<key>CFBundleDisplayName</key>
+        <string>${MAPS_API_KEY}</string>
+        <key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>

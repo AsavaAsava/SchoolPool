@@ -4,6 +4,8 @@ import 'package:ride_share/src/constants/colors.dart';
 import 'package:ride_share/src/constants/text_strings.dart';
 import 'package:ride_share/src/features/home/screens/profile/profile_screen.dart';
 
+import '../repository/authentication_repository.dart';
+
 class NavDrawer extends StatelessWidget{
   const NavDrawer({super.key});
 
@@ -54,9 +56,9 @@ class NavDrawer extends StatelessWidget{
             onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
-            leading: Icon(Icons.info_outlined),
+            leading: Icon(Icons.logout, color: Colors.red,),
             title: Text(tAbout),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {AuthenticationRepository.instance.logout()},
           ),
         ],
       ),
