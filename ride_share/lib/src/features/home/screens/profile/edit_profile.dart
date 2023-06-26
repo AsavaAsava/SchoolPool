@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:local_auth/local_auth.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
@@ -14,6 +16,10 @@ class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
 
   final _authRepo = Get.put(AuthenticationRepository());
+
+  late final LocalAuthentication auth;
+
+  bool _supportState = false;
 
   @override
   Widget build(BuildContext context) {
@@ -120,15 +126,18 @@ class EditProfileScreen extends StatelessWidget {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () async {
-                                final userData = UserModel(
-                                  email: email.text.trim(),
-                                  password: password.text.trim(),
-                                  fullName: fullName.text.trim(),
-                                  phoneNo: phoneNo.text.trim(),
-                                  emailVerified: _authRepo.firebaseUser.value?.emailVerified,
-                                );
 
-                                await controller.updateRecord(userData);
+                                // if(await _authenticate()){
+                                  final userData = UserModel(
+                                    email: email.text.trim(),
+                                    password: password.text.trim(),
+                                    fullName: fullName.text.trim(),
+                                    phoneNo: phoneNo.text.trim(),
+                                    emailVerified: _authRepo.firebaseUser.value?.emailVerified,
+                                  );
+
+                                  await controller.updateRecord(userData);
+                                // }
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: tPrimaryColor,

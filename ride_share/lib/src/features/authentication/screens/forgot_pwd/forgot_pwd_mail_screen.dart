@@ -35,7 +35,7 @@ class _ForgotPasswordMailScreenState extends State<ForgotPasswordMailScreen> {
           context: context,
           builder: (context){
             return const AlertDialog(
-              content: Text("A passwrod reset link has been sent to your email."),
+              content: Text("A password reset link has been sent to your email."),
             );
           });
     } on FirebaseAuthException catch (e){
@@ -87,7 +87,7 @@ class _ForgotPasswordMailScreenState extends State<ForgotPasswordMailScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                              onPressed: passwordReset(),
+                              onPressed: passwordReset,
                               child: const Text("Send")
                           ),
                         )
@@ -102,11 +102,6 @@ class _ForgotPasswordMailScreenState extends State<ForgotPasswordMailScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    controller.dispose();
-  }
 
   // Future passwordReset() async{
   //   try{
