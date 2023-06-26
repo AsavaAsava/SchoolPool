@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:ride_share/src/features/home/screens/profile/edit_profile.dart';
 
 import '../../../../constants/colors.dart';
 import '../../../../constants/image_strings.dart';
@@ -66,8 +67,8 @@ class ProfileScreen extends StatelessWidget{
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
-                  // onPressed: () => Get.to(() => const UpdateProfileScreen()),
-                  onPressed: () {},
+                  onPressed: () => Get.to(() => EditProfileScreen()),
+                  // onPressed: () {},
                   style: ElevatedButton.styleFrom(
                       backgroundColor: tSecondaryColor,
                       side: BorderSide.none,

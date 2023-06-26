@@ -5,7 +5,7 @@ class UserModel {
   final String fullName;
   final String email;
   final String phoneNo;
-  final String password;
+  late final String password;
   bool? emailVerified;
 
   UserModel({
@@ -49,6 +49,8 @@ class UserModel {
         emailVerified: data["EmailVerified"],
         phoneNo: data["Phone"],
     );
+
+
   }
 
   factory UserModel.fromSnapshotVerify(
