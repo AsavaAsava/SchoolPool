@@ -1,13 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dbcrypt/dbcrypt.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:ride_share/src/features/home/screens/home_screen.dart';
 import 'package:ride_share/src/repository/signup_failure.dart';
 import 'package:ride_share/src/repository/user_repository.dart';
 
 import '../features/authentication/screens/welcome/welcome_screen.dart';
+import '../models/user_model.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -16,6 +17,7 @@ class AuthenticationRepository extends GetxController {
   late final Rx<User?> firebaseUser;
   var verificationId = ''.obs;
   final _userRepo = Get.put(UserRepository());
+  final _db = FirebaseFirestore.instance;
 
   @override
   void onReady() {
@@ -58,84 +60,65 @@ class AuthenticationRepository extends GetxController {
         PhoneAuthProvider.credential(
             verificationId: verificationId.value, smsCode: otp));
     return credentials.user != null ? true : false;
-    // String? phone = credentials.user?.phoneNumber;
-    // final snapshot = await FirebaseFirestore.instance
-    //     .collection("Users")
-    //     .where("Email", isEqualTo: FirebaseAuth.instance.currentUser?.email)
-    //     .get();
-    // final userData = await snapshot.docs.map((e) => UserModel.fromSnapshotAdd(e, phone!)).single;
-    // await FirebaseFirestore.instance
-    //     .collection("Users")
-    //     .doc(userData.id)
-    //     .update(userData.toJson())
-    //     .whenComplete(() => {
-    //   Get.snackbar("Success", "Your phone number has been verified",
-    //       snackPosition: SnackPosition.BOTTOM,
-    //       backgroundColor: Colors.green.withOpacity(0.1),
-    //       colorText: Colors.green),
-    // })
-    //     .catchError((e) => print(e));
-
-    // UserModel userData = await _userRepo.getUserDetails(FirebaseAuth.instance.currentUser?.email);
-    // userData.phoneNo = credentials.user?.phoneNumber!;
-    // userData.phoneVerified = true;
-    // bool result = credentials.user != null ? true : false;
-    // if(result == true){
-    //   print(userData.toJson());
-    //   await updatePhoneNumber(userData);
-    //   return result;
-    // }
-    // return false;
   }
 
-  // Future<void> updatePhoneNumber(UserModel user) async {
-  //   await FirebaseFirestore.instance
-  //       .collection("Users")
-  //       .doc(user.id)
-  //       .update(user.toJson())
-  //       .whenComplete(() =>
-  //   {
-  //     Get.snackbar("Success", "Your phone number has been verified",
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         backgroundColor: Colors.green.withOpacity(0.1),
-  //         colorText: Colors.green),
-  //   })
-  //       .catchError((e) => print(e));
-  // }
-
-  Future<void> createUserWithEmailAndPassword(String email,
-      String password) async {
-    try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      firebaseUser.value != null
-          ? Get.offAll(() => const HomeScreen())
-          : Get.offAll(() => const WelcomeScreen());
-    } on FirebaseAuthException catch (e) {
-      final ex = SignUpMailPasswordFailure.code(e.code);
-      if (kDebugMode) {
-        print('FIREBASE AUTH EXCEPTION - ${ex.message}');
-      }
-      throw ex;
-    } catch (_) {
-      const ex = SignUpMailPasswordFailure();
-      if (kDebugMode) {
-        print('EXCEPTION - ${ex.message}');
-      }
-      throw ex;
+  Future<bool> loginUserWithPhoneAndPassword(String phone, String password) async {
+    UserModel userData = getUserDetails(phone) as UserModel;
+    var matches = isCorrect(password, userData.password);
+    if(matches){
+      return true;
     }
-  }
-
-  Future<bool> loginUserWithEmailAndPassword(String email,
-      String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      return firebaseUser.value != null ? true : false;
-    } on FirebaseAuthException catch (e) {
-      e.code;
-    } catch (_) {}
     return false;
   }
+
+  bool isCorrect(String pwd, String hashed){
+    return DBCrypt().checkpw(pwd, hashed);
+  }
+
+  Future<UserModel> getUserDetails(String? phone) async {
+    final snapshot = await _db.collection("Users").where("Phone", isEqualTo: phone).get();
+    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    return userData;
+  }
+
+
+  Future<void> logout() async {
+    await _auth.signOut();
+  }
+
+  // Future<bool> createUserWithEmailAndPassword(String email,
+  //     String password) async {
+  //   try {
+  //     await _auth.createUserWithEmailAndPassword(
+  //         email: email, password: password);
+  //     return firebaseUser.value != null
+  //         ? true
+  //         : false;
+  //   } on FirebaseAuthException catch (e) {
+  //     final ex = SignUpMailPasswordFailure.code(e.code);
+  //     if (kDebugMode) {
+  //       print('FIREBASE AUTH EXCEPTION - ${ex.message}');
+  //     }
+  //     throw ex;
+  //   } catch (_) {
+  //     const ex = SignUpMailPasswordFailure();
+  //     if (kDebugMode) {
+  //       print('EXCEPTION - ${ex.message}');
+  //     }
+  //     throw ex;
+  //   }
+  // }
+
+  // Future<bool> loginUserWithEmailAndPassword(String email,
+  //     String password) async {
+  //   try {
+  //     await _auth.signInWithEmailAndPassword(email: email, password: password);
+  //     return firebaseUser.value != null ? true : false;
+  //   } on FirebaseAuthException catch (e) {
+  //     e.code;
+  //   } catch (_) {}
+  //   return false;
+  // }
 
   //
   // void signInWithFacebook() async{
@@ -185,7 +168,4 @@ class AuthenticationRepository extends GetxController {
   //   }
   // }
 
-  Future<void> logout() async {
-    await _auth.signOut();
-  }
 }
