@@ -1,0 +1,53 @@
+{
+    "name": "kreait/laravel-firebase",
+    "description": "A Laravel package for the Firebase PHP Admin SDK",
+    "keywords": ["laravel", "firebase", "firebase", "sdk", "api", "database", "fcm", "gcm"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jérôme Gamez",
+            "email": "jerome@gamez.name"
+        }
+    ],
+    "require": {
+        "php": "~8.1.0 || ~8.2.0",
+        "kreait/firebase-php": "^7.0",
+        "illuminate/contracts": "^9.0 || ^10.0",
+        "illuminate/support": "^9.0 || ^10.0",
+        "symfony/cache": "^6.1.2"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.0 || ^8.0",
+        "symplify/easy-coding-standard": "^11.1",
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kreait\\Laravel\\Firebase\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kreait\\Laravel\\Firebase\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kreait\\Laravel\\Firebase\\ServiceProvider"
+            ],
+            "aliases": {
+                "Firebase": "Kreait\\Laravel\\Firebase\\Facades\\Firebase"
+            }
+        }
+    },
+    "scripts": {
+        "cs": [
+            "vendor/bin/ecs --fix"
+        ],
+        "test": [
+            "vendor/bin/phpunit"
+        ]
+    }
+}
