@@ -179,10 +179,6 @@ return [
                  * https://github.com/kreait/firebase-php/blob/6.x/src/Firebase/Http/HttpClientOptions.php
                  */
                 'timeout' => env('FIREBASE_HTTP_CLIENT_TIMEOUT'),
-
-                'guzzle_middlewares' => [
-
-                ]
             ],
         ],
     ],
