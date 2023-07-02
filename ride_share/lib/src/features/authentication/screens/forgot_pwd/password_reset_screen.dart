@@ -81,10 +81,11 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                           child: ElevatedButton(
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  UserModel user = UserRepository.instance.getUserDetails(widget.phoneNo) as UserModel;
+                                  UserModel user = await UserRepository.instance.getUserDetails(widget.phoneNo);
                                   // user.password = encryptPassword(controller.newPassword.text.trim());
+                                  print(user.fullName);
                                   user.password = controller.newPassword.text.trim();
-                                  await UserRepository.instance.updateUser(user);
+                                  UserRepository.instance.updateUser(user);
                                   Get.offAll(() => const LoginScreen());
                                 }
                               },
