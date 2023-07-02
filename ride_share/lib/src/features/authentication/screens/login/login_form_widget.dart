@@ -103,6 +103,7 @@ class _LoginFormState extends State<LoginForm> {
                           borderRadius: BorderRadius.circular(7.0))),
                     ),
                     onPressed: () async {
+                      print("pressed");
                       if (_formKey.currentState!.validate()) {
                         bool result = await AuthenticationRepository.instance
                             .loginUserWithPhoneAndPassword(

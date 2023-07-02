@@ -46,3 +46,4 @@ config.json
 
 #Secrets file for API keys
 /lib/auth/secrets.dart
+/lib/auth.config.dart

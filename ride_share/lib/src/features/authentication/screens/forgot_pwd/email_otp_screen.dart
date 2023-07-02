@@ -9,10 +9,12 @@ import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
 import '../../controllers/otp_controller.dart';
 
-class ForgotPwdOTPScreen extends StatelessWidget {
-  const ForgotPwdOTPScreen({super.key, required this.phoneNo});
+// czpwkimeyjxmaujk
 
-  final String phoneNo;
+class EmailOTPScreen extends StatelessWidget {
+  const EmailOTPScreen({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class ForgotPwdOTPScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 20.0),
                           Text(
-                            "$tOtpMessage $phoneNo",
+                            "$tOtpMessage $email",
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 20.0),
@@ -79,7 +81,7 @@ class ForgotPwdOTPScreen extends StatelessWidget {
                             focusedBorderColor: tSecondaryColor,
                             onSubmit: (code) {
                               otp = code;
-                              otpController.verifyForgotPwdOTP(otp, phoneNo);
+                              otpController.verifyEmailOTP(otp, email);
                             },
                           ),
                           const SizedBox(
@@ -89,7 +91,7 @@ class ForgotPwdOTPScreen extends StatelessWidget {
                             width: size.width * 0.75,
                             child: ElevatedButton(
                               onPressed: () {
-                                otpController.verifyForgotPwdOTP(otp, phoneNo);
+                                otpController.verifyEmailOTP(otp, email);
                               },
                               child: const Text(
                                 "Next",
@@ -105,7 +107,7 @@ class ForgotPwdOTPScreen extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              AuthenticationRepository.instance.phoneAuthentication(phoneNo);
+                              AuthenticationRepository.instance.sendEmailOtp(email);
                             },
                             child: Text.rich(
                               TextSpan(
