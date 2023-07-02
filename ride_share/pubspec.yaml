@@ -52,6 +52,7 @@ dependencies:
   intl: ^0.17.0
   local_auth: ^2.1.6
   dbcrypt: ^2.0.0
+  email_auth: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -4,9 +4,12 @@ import 'package:get/get.dart';
 import 'package:ride_share/src/constants/colors.dart';
 import 'package:ride_share/src/constants/image_strings.dart';
 import 'package:ride_share/src/constants/text_strings.dart';
+import 'package:ride_share/src/features/authentication/screens/forgot_pwd/email_otp_screen.dart';
+import 'package:ride_share/src/repository/authentication_repository.dart';
 
 import '../../../../common_widgets/form_header_widget.dart';
 import '../../../../constants/sizes.dart';
+import 'forgot_pwd_otp_screen.dart';
 
 class ForgotPasswordMailScreen extends StatefulWidget {
   const ForgotPasswordMailScreen({super.key});
@@ -28,26 +31,26 @@ class _ForgotPasswordMailScreenState extends State<ForgotPasswordMailScreen> {
     super.dispose();
   }
   
-  Future passwordReset() async{
-    try{
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: controller.text.trim());
-      showDialog(
-          context: context,
-          builder: (context){
-            return const AlertDialog(
-              content: Text("A password reset link has been sent to your email."),
-            );
-          });
-    } on FirebaseAuthException catch (e){
-      showDialog(
-          context: context,
-          builder: (context){
-            return AlertDialog(
-              content: Text(e.message.toString()),
-            );
-          });
-    }
-  }
+  // Future passwordReset() async{
+  //   try{
+  //     await FirebaseAuth.instance.sendPasswordResetEmail(email: controller.text.trim());
+  //     showDialog(
+  //         context: context,
+  //         builder: (context){
+  //           return const AlertDialog(
+  //             content: Text("A password reset link has been sent to your email."),
+  //           );
+  //         });
+  //   } on FirebaseAuthException catch (e){
+  //     showDialog(
+  //         context: context,
+  //         builder: (context){
+  //           return AlertDialog(
+  //             content: Text(e.message.toString()),
+  //           );
+  //         });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +90,10 @@ class _ForgotPasswordMailScreenState extends State<ForgotPasswordMailScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                              onPressed: passwordReset,
+                              onPressed: (){
+                                AuthenticationRepository.instance.sendEmailOtp(controller.text.trim());
+                                Get.to(() => EmailOTPScreen(email: controller.text.trim()));
+                              },
                               child: const Text("Send")
                           ),
                         )

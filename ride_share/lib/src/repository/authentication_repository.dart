@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbcrypt/dbcrypt.dart';
+import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:ride_share/auth.config.dart';
 import 'package:ride_share/src/features/home/screens/home_screen.dart';
 import 'package:ride_share/src/repository/signup_failure.dart';
 import 'package:ride_share/src/repository/user_repository.dart';
@@ -18,12 +20,14 @@ class AuthenticationRepository extends GetxController {
   var verificationId = ''.obs;
   final _userRepo = Get.put(UserRepository());
   final _db = FirebaseFirestore.instance;
+  EmailAuth emailAuth =  EmailAuth(sessionName: "Email OTP session");
 
   @override
   void onReady() {
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
     ever(firebaseUser, _setInitialScreen);
+    emailAuth.config(remoteServerConfiguration);
   }
 
   _setInitialScreen(User? user) {
@@ -49,7 +53,7 @@ class AuthenticationRepository extends GetxController {
         if (e.code == 'invalid-phone-no') {
           Get.snackbar('Error', 'The phone number provided is invalid');
         } else {
-          Get.snackbar('Error', 'Something went wrong');
+          Get.snackbar('Error', 'Something went wrong ${e.code}');
         }
       },
     );
@@ -62,13 +66,40 @@ class AuthenticationRepository extends GetxController {
     return credentials.user != null ? true : false;
   }
 
-  Future<bool> loginUserWithPhoneAndPassword(String phone, String password) async {
-    UserModel userData = getUserDetails(phone) as UserModel;
-    var matches = isCorrect(password, userData.password);
+  // Future<bool> verifyForgotOTP(String otp) async {
+  //   var credentials = await _auth.signInWithCredential(
+  //       PhoneAuthProvider.credential(
+  //           verificationId: verificationId.value, smsCode: otp));
+  //   return credentials.user != null ? true : false;
+  // }
+
+  Future<bool> loginUserWithPhoneAndPassword(String phone, String password) async{
+    print("$phone $password");
+    UserModel userData = await getUserDetails(phone);
+    // var matches = isCorrect(password, userData.password);
+    var matches = (password == userData.password);
     if(matches){
       return true;
     }
     return false;
+  }
+
+  void sendEmailOtp(String userEmail) async{
+    bool res = await emailAuth.sendOtp(recipientMail: userEmail, otpLength: 6);
+    if(res){
+      print("OTP sent");
+    }else{
+      print("Error! OTP not sent");
+    }
+  }
+
+  Future<bool> verifyEmailOTP(String userEmail, String userOTP) async{
+    var res = emailAuth.validateOtp(recipientMail: userEmail, userOtp: userOTP);
+    if(res){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   bool isCorrect(String pwd, String hashed){
@@ -84,6 +115,7 @@ class AuthenticationRepository extends GetxController {
 
   Future<void> logout() async {
     await _auth.signOut();
+    Get.offAll(() => const WelcomeScreen());
   }
 
   // Future<bool> createUserWithEmailAndPassword(String email,

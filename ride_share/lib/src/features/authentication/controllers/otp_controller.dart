@@ -18,6 +18,11 @@ class OTPController extends GetxController{
 
   void verifyForgotPwdOTP(String otp, String phoneNo) async{
     var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
-    isVerified ? Get.to(() => PasswordResetScreen(phoneNo: phoneNo)) : Get.back();
+    isVerified ? Get.offAll(PasswordResetScreen(phoneNo: phoneNo)) : Get.back();
+  }
+
+  void verifyEmailOTP(String otp, String email) async{
+    var isVerified = await AuthenticationRepository.instance.verifyEmailOTP(email, otp);
+    isVerified ? Get.offAll(PasswordResetScreen(phoneNo: email)) : Get.back();
   }
 }
