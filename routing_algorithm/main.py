@@ -1,14 +1,8 @@
-import polyline
-import numpy as np
+from flask import Flask, request, jsonify
+from polyline import decode
 from math import radians, sin, cos, sqrt, atan2
 
-
-
-points_array = polyline.decode('ipkcFfichVnP@j@BLoFVwM{E?',4)
-
-# print(points_array)
-
-# np.savetxt("./output/driver_route.csv",points_array,delimiter=", ",fmt='% s')
+app = Flask(__name__)
 
 def haversine_distance(lat1, lon1, lat2, lon2):
     R = 6371  # Radius of the Earth in kilometers
@@ -32,7 +26,7 @@ def compare_routes(route1, route2):
     total_distance = 0
     total_points = min(len(route1), len(route2))
 
-    for i in range(total_points):
+    for i in range(total_points - 1, -1, -1):  # Iterate from last coordinates to first
         lat1, lon1 = route1[i]
         lat2, lon2 = route2[i]
         distance = haversine_distance(lat1, lon1, lat2, lon2)
@@ -44,7 +38,24 @@ def compare_routes(route1, route2):
     return similarity_score
 
 
-# Test
+@app.route('/compare_routes', methods=['POST'])
+def compare_routes_handler():
+    data = request.json
 
-similarity = compare_routes(points_array, points_array)
-print(f"Similarity score: {similarity}")
+    polyline1 = data.get('polyline1', '')
+    polyline2 = data.get('polyline2', '')
+
+    route1 = decode(polyline1)
+    route2 = decode(polyline2)
+
+    similarity = compare_routes(route1[::-1], route2[::-1])  # Reverse the routes
+
+    response = {
+        'similarity_score': similarity
+    }
+
+    return jsonify(response)
+
+
+if __name__ == '__main__':
+    app.run()
