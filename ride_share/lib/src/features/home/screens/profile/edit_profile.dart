@@ -126,17 +126,17 @@ class EditProfileScreen extends StatelessWidget {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () async {
-
                                 // if(await _authenticate()){
-                                  final userData = UserModel(
-                                    email: email.text.trim(),
-                                    password: password.text.trim(),
-                                    fullName: fullName.text.trim(),
-                                    phoneNo: phoneNo.text.trim(),
-                                    emailVerified: _authRepo.firebaseUser.value?.emailVerified,
-                                  );
+                                final userData = UserModel(
+                                  email: email.text.trim(),
+                                  password: password.text.trim(),
+                                  fullName: fullName.text.trim(),
+                                  phoneNo: phoneNo.text.trim(),
+                                  emailVerified: _authRepo
+                                      .firebaseUser.value?.emailVerified,
+                                );
 
-                                  await controller.updateRecord(userData);
+                                await controller.updateRecord(userData);
                                 // }
                               },
                               style: ElevatedButton.styleFrom(
