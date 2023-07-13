@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/badges/shields/master/readme-logo.svg?sanitize=true"
+    <img src="https://github.com/AsavaAsava/SchoolPool-CSP1/blob/Development/download.svg"
         height="130">
 </p>
 <p align="center">
