@@ -21,6 +21,7 @@
 ## Table of Contents
 
 ## Folder Structure
+```
  code
     .
     │
@@ -64,7 +65,7 @@
     ├── Classifier_SVM_Impersonal.ipynb
     ├── statistical_analysis_time_domain.py
     ├── Topological data analysis.ipynb  
-
+```
 ## Administration Dashboard
 
 ## Route Matching Algorithm API
