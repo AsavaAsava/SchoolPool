@@ -21,8 +21,8 @@
 ## Table of Contents
 
 ## Folder Structure
-
-.
+ code
+    .
     │
     ├── data
     │   ├── raw_data
