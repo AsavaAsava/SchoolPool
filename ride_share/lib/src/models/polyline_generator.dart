@@ -6,10 +6,43 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import '../../auth/secrets.dart';
+
 List<String> polyList = [];
 bool internet = true;
 
-Future<List<String>> getPolylines(LatLng pickUp, LatLng drop) async {
+// Future<List<String>> getPolylines(LatLng pickUp, LatLng drop) async {
+//   polyList.clear();
+//   String pickLat = '';
+//   String pickLng = '';
+//   String dropLat = '';
+//   String dropLng = '';
+//
+//   pickLat = pickUp.latitude.toString();
+//   pickLng = pickUp.longitude.toString();
+//   dropLat = drop.latitude.toString();
+//   dropLng = drop.longitude.toString();
+//
+//   try {
+//     var response = await http.get(Uri.parse(
+//         'https://maps.googleapis.com/maps/api/directions/json?origin=$pickLat%2C$pickLng&destination=$dropLat%2C$dropLng&avoid=ferries|indoor&transit_mode=bus&mode=driving&key='));
+//     if (response.statusCode == 200) {
+//       var steps =
+//           jsonDecode(response.body)['routes'][0]['overview_polyline']['points'];
+//       decodeEncodedPolyline(steps);
+//     } else {
+//       debugPrint(response.body);
+//     }
+//   } catch (e) {
+//     if (e is SocketException) {
+//       internet = false;
+//     }
+//   }
+//   return polyList;
+// }
+var steps = "";
+
+Future<String> getPolylines(LatLng pickUp, LatLng drop) async {
   polyList.clear();
   String pickLat = '';
   String pickLng = '';
@@ -23,11 +56,10 @@ Future<List<String>> getPolylines(LatLng pickUp, LatLng drop) async {
 
   try {
     var response = await http.get(Uri.parse(
-        'https://maps.googleapis.com/maps/api/directions/json?origin=$pickLat%2C$pickLng&destination=$dropLat%2C$dropLng&avoid=ferries|indoor&transit_mode=bus&mode=driving&key='));
+        'https://maps.googleapis.com/maps/api/directions/json?origin=$pickLat%2C$pickLng&destination=$dropLat%2C$dropLng&avoid=ferries|indoor&transit_mode=bus&mode=driving&key=$mapsAPIKey'));
     if (response.statusCode == 200) {
-      var steps =
-          jsonDecode(response.body)['routes'][0]['overview_polyline']['points'];
-      decodeEncodedPolyline(steps);
+      steps = jsonDecode(response.body)['routes'][0]['overview_polyline']['points'];
+      // decodeEncodedPolyline(steps);
     } else {
       debugPrint(response.body);
     }
@@ -36,7 +68,7 @@ Future<List<String>> getPolylines(LatLng pickUp, LatLng drop) async {
       internet = false;
     }
   }
-  return polyList;
+  return steps;
 }
 
 Set<Polyline> polyline = {};
