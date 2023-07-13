@@ -18,6 +18,9 @@
 
 ## About the Project
 
+Ride share is a project meant to reduce traffic congenstion within school zones in Kenya by reducing the  number of vehicles moving in and out 
+of schools though school managed carpooling.
+
 ## Table of Contents
 
 ## Folder Structure
@@ -30,6 +33,18 @@
     ├── school_pool_admin --> Admin Side Web Dashboard
     ├── school_pool_mobile --> Client Side Mobile Application
 ```
+
 ## Administration Dashboard
 
+### Installation
+```bash
+cd ./school_pool_admin
+
+
+```
+
 ## Route Matching Algorithm API
+[![lterm](https://img.shields.io/badge/webiste-live-brightgreen.svg?style=flat-square)](https://sr6033.github.io/lterm/)
+
+
+### Usage
