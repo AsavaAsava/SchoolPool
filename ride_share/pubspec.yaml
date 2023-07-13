@@ -55,6 +55,8 @@ dependencies:
   email_auth: ^1.0.0
   weekday_selector: ^1.1.0
   geocoding: ^2.1.0
+  flutter_google_places: ^0.3.0
+  google_maps_webservice: ^0.0.20-nullsafety.5
 
 dev_dependencies:
   flutter_test:
