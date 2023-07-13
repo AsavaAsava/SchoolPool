@@ -4,6 +4,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:ride_share/src/constants/colors.dart';
 import 'package:ride_share/src/features/authentication/screens/forgot_pwd/forgot_password_bottom_modal.dart';
 import 'package:ride_share/src/features/home/screens/home_screen.dart';
+import 'package:ride_share/src/features/home/screens/new_home_screen.dart';
 
 import '../../../../constants/sizes.dart';
 import '../../../../constants/text_strings.dart';
@@ -110,7 +111,7 @@ class _LoginFormState extends State<LoginForm> {
                                 controller.phone.text.trim(),
                                 controller.password.text.trim());
                         if (result == true) {
-                          Get.offAll(() => const HomeScreen());
+                          Get.offAll(() => const NewHomeScreen());
                         } else {
                           setState(() {
                             invalidCredentials = true;

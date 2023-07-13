@@ -11,6 +11,7 @@ import 'package:ride_share/src/repository/user_repository.dart';
 import 'package:weekday_selector/weekday_selector.dart';
 import 'package:geocoding/geocoding.dart' as geoCoding;
 
+import '../../../../../auth/secrets.dart';
 import '../../../../common_widgets/location_list_tile.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/sizes.dart';
@@ -76,7 +77,7 @@ class _OfferRideScreenState extends State<OfferRideScreen> {
     Uri uri = Uri.https(
         "maps.googleapis.com",
         'maps/api/place/autocomplete/json',
-        {"input": query, "key": ''});
+        {"input": query, "key": mapsAPIKey});
 
     String? response = await NetworkUtility.fetchUrl(uri);
 
@@ -444,7 +445,7 @@ class _OfferRideScreenState extends State<OfferRideScreen> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       UserModel user = await UserRepository.instance.getUserDetails("+254706446072");
-                      List<String> polyline =  await getPolylines(source, drop);
+                      String polyline =  await getPolylines(source, drop);
                       Map<String, String> dayAndTime = {};
                       List<String> initialTimes = [
                         mondayTime.text.trim(),
