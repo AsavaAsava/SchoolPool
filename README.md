@@ -12,4 +12,5 @@
 
 </p>
 
-## Ride Share
+<h1 align="center"> SchoolPool</h1>
+<h3 align="center"> A School Managed Carpooling Application </h3>
