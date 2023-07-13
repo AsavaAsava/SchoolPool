@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/AsavaAsava/SchoolPool-CSP1/blob/Development/download.svg"
+    <img src="https://github.com/AsavaAsava/SchoolPool-CSP1/blob/Development/school-pool-logo.png"
         height="130">
 </p>
 <p align="center">
