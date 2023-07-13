@@ -29,14 +29,14 @@ class WelcomeScreen extends StatelessWidget{
                   RichText(
                       text: TextSpan(
                         text: "Welcome to ",
-                        style: TextStyle(fontFamily: GoogleFonts.montserrat().fontFamily, fontWeight: FontWeight.bold, fontSize: 30.0, color: isDarkMode ? tWhiteColor : tBlackColor,),
+                        style: TextStyle(fontFamily: GoogleFonts.montserrat().fontFamily, fontWeight: FontWeight.bold, fontSize: 25.0, color: isDarkMode ? tWhiteColor : tBlackColor,),
                         children: const <TextSpan>[
                           TextSpan(text: "Ride"),
                           TextSpan(text: "Share", style: TextStyle(color: tSecondaryColor)),
                         ],
                       ),
                   ),
-                  Text(tWelcomeSubtitle, style: Theme.of(context).textTheme.bodyLarge, textAlign: TextAlign.center,),
+                  Text(tWelcomeSubtitle, style: Theme.of(context).textTheme.bodyMedium, textAlign: TextAlign.center,),
                 ],
               ),
               SizedBox(

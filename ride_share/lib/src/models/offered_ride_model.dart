@@ -7,7 +7,8 @@ class OfferedRideModel {
   final String carModel;
   final String numberPlate;
   final Map<String, String> dayAndTimeAvailable;
-  final List<String> routePolyline;
+  // final List<String> routePolyline;
+  final String routePolyline;
 
   OfferedRideModel(
       {this.id,
