@@ -113,7 +113,7 @@ class _OfferRideScreenState extends State<OfferRideScreen> {
             children: [
               TextFormField(
                 cursorColor: tSecondaryColor,
-                controller: controller.carMake,
+                // controller: controller.carMake,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return '*Please enter the car make and model';
@@ -470,15 +470,15 @@ class _OfferRideScreenState extends State<OfferRideScreen> {
                           mappings.addAll(entry);
                       }
 
-                      final rideDetails = OfferedRideModel(
-                          userId: user.id!,
-                          carModel: controller.carMake.text.trim(),
-                          numberPlate: controller.numberPlate.text.trim(),
-                          dayAndTimeAvailable: mappings,
-                          routePolyline: polyline
-                      );
+                      // final rideDetails = OfferedRideModel(
+                      //     userId: user.id!,
+                      //     // carModel: controller.carMake.text.trim(),
+                      //     numberPlate: controller.numberPlate.text.trim(),
+                      //     dayAndTimeAvailable: mappings,
+                      //     routePolyline: polyline
+                      // );
 
-                      RideController.instance.addRide(rideDetails);
+                      // RideController.instance.addRide(rideDetails);
 
                       // print(rideDetails);
                       // print(rideDetails.toJson());

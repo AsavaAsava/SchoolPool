@@ -4,37 +4,45 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class OfferedRideModel {
   final String? id;
   final String userId;
-  final String carModel;
+  final String userName;
+  final String source;
+  final String destination;
+  final String encodedPolyline;
+  final String vehicleMake;
+  final String vehicleModel;
+  final String vehicleColor;
   final String numberPlate;
+  final String seatsAvailable;
   final Map<String, String> dayAndTimeAvailable;
-  // final List<String> routePolyline;
-  final String routePolyline;
 
   OfferedRideModel(
       {this.id,
       required this.userId,
-      required this.carModel,
+      required this.userName,
+      required this.source,
+      required this.destination,
+      required this.encodedPolyline,
+      required this.vehicleMake,
+      required this.vehicleModel,
+      required this.vehicleColor,
+      required this.seatsAvailable,
       required this.numberPlate,
       required this.dayAndTimeAvailable,
-      required this.routePolyline});
-
-  // toJsonInitial() {
-  //   return {
-  //     "UserID": userId,
-  //     "CarModel": carModel,
-  //     "NumberPlate": numberPlate,
-  //     "DayAndTimeAvailable": dayAndTimeAvailable,
-  //     "RoutePolyline": routePolyline,
-  //   };
-  // }
+      });
 
   toJson() {
     return {
       "UserID": userId,
-      "CarModel": carModel,
+      "UserName": userName,
+      "Source": source,
+      "Destination": destination,
+      "EncodedPolyLine": encodedPolyline,
+      "VehicleMake": vehicleMake,
+      "VehicleModel": vehicleModel,
+      "VehicleColor": vehicleColor,
+      "SeatsAvailable": seatsAvailable,
       "NumberPlate": numberPlate,
       "DayAndTimeAvailable": dayAndTimeAvailable,
-      "RoutePolyline": routePolyline,
     };
   }
 
@@ -45,10 +53,16 @@ class OfferedRideModel {
     return OfferedRideModel(
       id: document.id,
       userId: data["UserID"],
-      carModel: data["CarModel"],
+      userName: data["UserName"],
+      source: data["Source"],
+      destination: data["Destination"],
+      vehicleModel: data["VehicleModel"],
+      vehicleMake: data["VehicleMake"],
+      vehicleColor: data["VehicleColor"],
       numberPlate: data["NumberPlate"],
+      seatsAvailable: data["SeatsAvailable"],
       dayAndTimeAvailable: data["DayAndTimeAvailable"],
-      routePolyline: data["RoutePolyline"],
+      encodedPolyline: data["EncodedPolyLine"],
     );
   }
 }
