@@ -35,7 +35,7 @@ In Kenya, heavy traffic is experienced around school zones during peak pick-up a
 
 ## Introduction
 
-This project is made up of three main components. A mobile app developed using Flutter, an administrator application built with Laravel, and a Flask API for route similarity calculation and matching.
+This carpooling solution is made up of three main components. A client mobile app developed using Flutter which facilitates the process of scheduling carpooling across the parents of a particular school, an administrator panel built with Laravel which allows, and a Flask API for route similarity calculation and matching.
 
 ## Folder Structure
 ```
