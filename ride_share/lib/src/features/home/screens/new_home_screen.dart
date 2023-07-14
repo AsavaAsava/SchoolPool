@@ -1,21 +1,10 @@
-import 'dart:typed_data';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-// import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-// import 'package:google_maps_webservice/places.dart';
-// import 'package:green_taxi/views/my_profile.dart';
-
-// import '../controller/auth_controller.dart';
-// import '../controller/polyline_handler.dart';
-// import '../utils/app_colors.dart';
-// import '../utils/app_constants.dart';
 import 'package:geocoding/geocoding.dart' as geoCoding;
 import 'package:google_maps_webservice/places.dart';
 import 'dart:ui' as ui;
@@ -24,12 +13,12 @@ import 'package:ride_share/src/constants/colors.dart';
 import 'package:ride_share/src/constants/text_strings.dart';
 import 'package:ride_share/src/features/home/controllers/map_controller.dart';
 import 'package:ride_share/src/features/home/screens/profile/edit_profile.dart';
+import 'package:ride_share/src/features/home/screens/requests/ride_request.dart';
+import 'package:ride_share/src/features/home/screens/ride/ride_registration.dart';
+import 'package:ride_share/src/features/home/screens/schedule/user_schedule.dart';
 
+import '../../../common_widgets/text_widget.dart';
 import '../../../constants/image_strings.dart';
-
-//
-// import '../widgets/text_widget.dart';
-// import 'payment.dart';
 
 class NewHomeScreen extends StatefulWidget {
   const NewHomeScreen({Key? key}) : super(key: key);
@@ -47,12 +36,6 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
   late LatLng destination;
   final Set<Polyline> polyline = {};
   Set<Marker> markers = Set<Marker>();
-  List<String> list = <String>[
-    '**** **** **** 8789',
-    '**** **** **** 8921',
-    '**** **** **** 1233',
-    '**** **** **** 4352'
-  ];
 
   @override
   void initState() {
@@ -68,7 +51,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
   // String dropdownValue = '**** **** **** 8789';
   final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(-1.3093299, 36.8099464),
-    zoom: 14.4746,
+    zoom: 10,
   );
 
   GoogleMapController? myMapController;
@@ -77,7 +60,12 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: buildDrawer(),
+      appBar: AppBar(
+        backgroundColor: tSecondaryColor,
+        elevation: 0.0,
+      ),
       // appBar: AppBar(
+      //   automaticallyImplyLeading: true,
       //   centerTitle: true,
       //   title: const Text(
       //     'Navigation Drawer',
@@ -94,11 +82,11 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
             child: GoogleMap(
               markers: markers,
               polylines: polyline,
-              zoomControlsEnabled: false,
+              zoomControlsEnabled: true,
               onMapCreated: (GoogleMapController controller) {
                 myMapController = controller;
 
-                myMapController!.setMapStyle(_mapStyle);
+                // myMapController!.setMapStyle(_mapStyle);
               },
               initialCameraPosition: _kGooglePlex,
             ),
@@ -115,7 +103,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
 
   Widget buildProfileTile() {
     return Positioned(
-      top: 50,
+      top: 0,
       left: 0,
       right: 0,
       child:
@@ -126,7 +114,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
           //     :
           Container(
         width: Get.width,
-        height: Get.width * 0.35,
+        height: Get.width * 0.2,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
         decoration: const BoxDecoration(color: Colors.white),
         child: Row(
@@ -165,7 +153,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
 
   Widget buildTextField() {
     return Positioned(
-      top: 100,
+      top: 80,
       left: 20,
       right: 20,
       child: Container(
@@ -211,9 +199,12 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                 //17 is new zoom level
                 ));
 
-            setState(() {
-              showDestinationField = true;
-            });
+            // TODO build driver bottom sheet
+            buildRideConfirmationSheet();
+
+            // setState(() {
+            //   showDestinationField = true;
+            // });
           },
           style: GoogleFonts.poppins(
               fontSize: 15, fontWeight: FontWeight.bold, color: Colors.black54),
@@ -240,7 +231,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
 
   Widget buildTextFieldForDestination() {
     return Positioned(
-      top: 230,
+      top: 150,
       left: 20,
       right: 20,
       child: Container(
@@ -447,7 +438,9 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                     icon: const Icon(Icons.wallet_outlined)),
                 buildDrawerItem(
                     title: tMySchedule,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => UserSchedule());
+                    },
                     icon: const Icon(Icons.calendar_month)),
                 buildDrawerItem(
                     title: tTripHistory,
@@ -455,7 +448,9 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                     icon: const Icon(Icons.history)),
                 buildDrawerItem(
                     title: tRideRequests,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() =>  RideRequests());
+                    },
                     icon: const Icon(Icons.people_alt_outlined)),
 
                 const Divider(
@@ -466,7 +461,9 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
 
                 buildDrawerItem(
                     title: "Offer a Ride",
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => const RideRegistrationTemplate());
+                    },
                     icon: const Icon(Icons.drive_eta)),
 
                 const Divider(
@@ -578,7 +575,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                   CameraPosition(target: destination, zoom: 14)));
               setState(() {});
 
-              // buildRideConfirmationSheet();
+              buildRideConfirmationSheet();
             },
             child: Container(
               width: Get.width,
@@ -647,7 +644,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                   CameraPosition(target: destination, zoom: 14)));
               setState(() {});
 
-              // buildRideConfirmationSheet();
+              buildRideConfirmationSheet();
             },
             child: Container(
               width: Get.width,
@@ -709,7 +706,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
               myMapController!.animateCamera(CameraUpdate.newCameraPosition(
                   CameraPosition(target: destination, zoom: 14)));
               setState(() {});
-              // buildRideConfirmationSheet();
+              buildRideConfirmationSheet();
             },
             child: Container(
               width: Get.width,
@@ -744,145 +741,145 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
     ));
   }
 
-// buildRideConfirmationSheet() {
-//   Get.bottomSheet(Container(
-//     width: Get.width,
-//     height: Get.height * 0.4,
-//     padding: EdgeInsets.only(left: 20),
-//     decoration: BoxDecoration(
-//       color: Colors.white,
-//       borderRadius: BorderRadius.only(
-//           topRight: Radius.circular(12), topLeft: Radius.circular(12)),
-//     ),
-//     child: Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         const SizedBox(
-//           height: 10,
-//         ),
-//         Center(
-//           child: Container(
-//             width: Get.width * 0.2,
-//             height: 8,
-//             decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.circular(8), color: Colors.grey),
-//           ),
-//         ),
-//         const SizedBox(
-//           height: 20,
-//         ),
-//         textWidget(
-//             text: 'Select an option:',
-//             fontSize: 18,
-//             fontWeight: FontWeight.bold),
-//         const SizedBox(
-//           height: 20,
-//         ),
-//         buildDriversList(),
-//         const SizedBox(
-//           height: 20,
-//         ),
-//         Padding(
-//           padding: const EdgeInsets.only(right: 20),
-//           child: Divider(),
-//         ),
-//         Padding(
-//           padding: const EdgeInsets.only(right: 20),
-//           child: Row(
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               Expanded(child: buildPaymentCardWidget()),
-//               MaterialButton(
-//                 onPressed: () {},
-//                 child: textWidget(
-//                   text: 'Confirm',
-//                   color: Colors.white,
-//                 ),
-//                 color: AppColors.greenColor,
-//                 shape: StadiumBorder(),
-//               )
-//             ],
-//           ),
-//         )
-//       ],
-//     ),
-//   ));
-// }
+  buildRideConfirmationSheet() {
+    Get.bottomSheet(Container(
+      width: Get.width,
+      height: Get.height * 0.5,
+      padding: EdgeInsets.only(left: 20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: Container(
+              width: Get.width * 0.2,
+              height: 8,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8), color: Colors.grey),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          textWidget(
+              text: 'We found the following matches',
+              fontSize: 18,
+              fontWeight: FontWeight.bold),
+          textWidget(
+              text: 'Select an option:',
+              fontSize: 16,
+              fontWeight: FontWeight.normal),
+          const SizedBox(
+            height: 20,
+          ),
+          buildDriversList(),
+        ],
+      ),
+    ));
+  }
 
-// int selectedRide = 0;
+  int selectedRide = 0;
 
-// buildDriversList() {
-//   return Container(
-//     height: 90,
-//     width: Get.width,
-//     child: StatefulBuilder(builder: (context, set) {
-//       return ListView.builder(
-//         itemBuilder: (ctx, i) {
-//           return InkWell(
-//             onTap: () {
-//               set(() {
-//                 selectedRide = i;
-//               });
-//             },
-//             child: buildDriverCard(selectedRide == i),
-//           );
-//         },
-//         itemCount: 3,
-//         scrollDirection: Axis.horizontal,
-//       );
-//     }),
-//   );
-// }
+  buildDriversList() {
+    return Container(
+      height: 250,
+      width: Get.width,
+      child: StatefulBuilder(builder: (context, set) {
+        return ListView.builder(
+          itemBuilder: (ctx, i) {
+            return InkWell(
+              onTap: () {
+                set(() {
+                  selectedRide = i;
+                });
+              },
+              child: buildDriverCard(selectedRide == i),
+            );
+          },
+          itemCount: 5,
+          scrollDirection: Axis.horizontal,
+        );
+      }),
+    );
+  }
 
-// buildDriverCard(bool selected) {
-//   return Container(
-//     margin: EdgeInsets.only(right: 8, left: 8, top: 4, bottom: 4),
-//     height: 85,
-//     width: 165,
-//     decoration: BoxDecoration(
-//         boxShadow: [
-//           BoxShadow(
-//               color: selected
-//                   ? Color(0xff2DBB54).withOpacity(0.2)
-//                   : Colors.grey.withOpacity(0.2),
-//               offset: Offset(0, 5),
-//               blurRadius: 5,
-//               spreadRadius: 1)
-//         ],
-//         borderRadius: BorderRadius.circular(12),
-//         color: selected ? Color(0xff2DBB54) : Colors.grey),
-//     child: Stack(
-//       children: [
-//         Container(
-//           padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               textWidget(
-//                   text: 'Standard',
-//                   color: Colors.white,
-//                   fontWeight: FontWeight.w700),
-//               textWidget(
-//                   text: '\$9.90',
-//                   color: Colors.white,
-//                   fontWeight: FontWeight.w500),
-//               textWidget(
-//                   text: '3 MIN',
-//                   color: Colors.white.withOpacity(0.8),
-//                   fontWeight: FontWeight.normal,
-//                   fontSize: 12),
-//             ],
-//           ),
-//         ),
-//         Positioned(
-//             right: -20,
-//             top: 0,
-//             bottom: 0,
-//             child: Image.asset('assets/Mask Group 2.png'))
-//       ],
-//     ),
-//   );
-// }
+  buildDriverCard(bool selected) {
+    return Container(
+      margin: EdgeInsets.only(right: 8, left: 8, top: 4, bottom: 4),
+      height: 170,
+      width: 235,
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                color: selected
+                    ? tSecondaryColor.withOpacity(0.2)
+                    : Colors.grey.withOpacity(0.2),
+                offset: Offset(0, 5),
+                blurRadius: 5,
+                spreadRadius: 1)
+          ],
+          borderRadius: BorderRadius.circular(12),
+          color: selected ? tSecondaryColor : Colors.grey),
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                textWidget(
+                    text: 'Nathan Mbugua',
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700),
+                textWidget(
+                    text: 'Toyota Mark X',
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500),
+                SizedBox(
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          Text("Days"),
+                          Text("M and T gds dgshr"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text("Seats"),
+                          Text("3/4"),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text("Pay"),
+                          Text("350"),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                ElevatedButton(onPressed: () {}, child: Text("REQUEST"))
+              ],
+            ),
+          ),
+          // ElevatedButton(onPressed: () {}, child: Text("Request"))
+          // Positioned(
+          //     right: -20,
+          //     top: 0,
+          //     bottom: 0,
+          //     child: Image.asset('assets/Mask Group 2.png'))
+        ],
+      ),
+    );
+  }
 
 // buildPaymentCardWidget() {
 //   return Container(
