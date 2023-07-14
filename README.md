@@ -33,7 +33,7 @@ In Kenya, heavy traffic is experienced around school zones during peak pick-up a
 
 [ Contributors](#contributors)
 
-## Introduction
+## Introductioncd 
 
 This carpooling solution is made up of three main components. A client mobile app developed using Flutter which facilitates the process of scheduling carpooling across the parents of a particular school, an administrator panel built with Laravel which allows, and a Flask API for route similarity calculation and matching.
 
@@ -190,7 +190,7 @@ The client mobile application is available for [Android](www.android.com).
 
 ## Contributors
 <p>
-  :mortar_board: <i>All participants in this project are graduate students in the <a href="https://whttps://sces.strathmore.edu/">School of Computing and Engineering Sciences</a> <b>@</b> <a href="https://www.strathmore.edu/">Strathmore University</a></i> <br> <br>
+  :mortar_board: <i>The participants in this project are undergraduate students in the <a href="https://whttps://sces.strathmore.edu/">School of Computing and Engineering Sciences</a> <b>at</b> <a href="https://www.strathmore.edu/">Strathmore University</a></i> <br> <br>
   
    <b>Wayne Asava</b> <br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: <a>wayne.asava@strathmore.edu</a> <br>
@@ -203,4 +203,4 @@ The client mobile application is available for [Android](www.android.com).
 </p>
 
 <br>
-✤ <i>This was the final project for the course ICS 2204 - CS Project 1, at <a href="https://www.strathmore.edu/">Concordia University</a><i>
+✤ <i>This was the semester project for the course ICS 2204 - CS Project 1, at <a href="https://www.strathmore.edu/">Strathmore University</a><i>
