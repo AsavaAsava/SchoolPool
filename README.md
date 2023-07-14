@@ -33,7 +33,7 @@ In Kenya, heavy traffic is experienced around school zones during peak pick-up a
 
 [ Contributors](#contributors)
 
-## Introductioncd 
+## Introduction
 
 This carpooling solution is made up of three main components. A client mobile app developed using Flutter which facilitates the process of scheduling carpooling across the parents of a particular school, an administrator panel built with Laravel which allows, and a Flask API for route similarity calculation and matching.
 
