@@ -35,6 +35,8 @@ In Kenya, heavy traffic is experienced around school zones during peak pick-up a
 
 ## Introduction
 
+This project is made up of three main components. A mobile app developed using Flutter, an administrator application built with Laravel, and a Flask API for route similarity calculation and matching.
+
 ## Folder Structure
 ```
     .
@@ -67,7 +69,7 @@ Before getting started, make sure you have the following software installed on y
    git clone https://github.com/AsavaAsava/SchoolPool-CSP1.git
 ```
 
-2. Navigate to the API directory
+2. Navigate to the Laravel directory
 ```bash
    cd ./school_pool_admin
 ```
