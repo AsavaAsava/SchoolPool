@@ -21,18 +21,22 @@
 In Kenya, heavy traffic is experienced around school zones during peak pick-up and drop-off times. This often leads to congestion around these areas as most schools cannot accomodate this large number of vehicles. The project therefore aims to reduce the number of vehicles accessing the school through carpooling.
 
 ## Table of Contents
-[ Introduction](#introduction)
-[ Folder Structure](#folder-structure)
-[ Administration Dashboard](#administration-dashboard)
-[ Route Similarity API](#route-similarity-api)
-[Client Mobile Application](#client-mobile-application)
-[ Contributors](#introduction)
+[ Introduction](#introduction) <br>
+
+[ Folder Structure](#folder-structure)<br>
+
+[ Administration Dashboard](#administration-dashboard)<br>
+
+[ Route Similarity API](#route-similarity-api)<br>
+
+[Client Mobile Application](#client-mobile-application)<br>
+
+[ Contributors](#contributors)
 
 ## Introduction
 
 ## Folder Structure
 ```
-
     .
     │
     ├── route_similarity_algorithm  --> Route Similarity API
@@ -45,6 +49,8 @@ In Kenya, heavy traffic is experienced around school zones during peak pick-up a
 ```
 
 ## Administration Dashboard
+
+This has been built using [Laravel](https://laravel.com/) and has made use of [Jetstream](https://jetstream.laravel.com/3.x/introduction.html) and the [AdminLTE template](https://adminlte.io/). The Administrator System also exposes an API at `/api/verify` which verifies a user is authorized to use the platform.
 
 ### Installation
 These instructions will guide you on how to set up and run the API on your local machine.
@@ -169,28 +175,30 @@ The API will start running on `http://localhost:5000`
 Make a POST request with a JSON Payload to `http://localhost:5000/compare_routes` as described in the [quickstart section](#quick-start)
 
 ## Client Mobile Application
+The client mobile application is available for [Android](www.android.com).
 ### Features
+1. Ride Scheduling
+    The platform allows Drivers to schedule their rides and parents to request for their children to be picked up.
+2. Live Location Tracking
+    The platform uses the Google Maps API to provide the driver with the most efficient route. The drivers location is tracked and can be viewd by Parents whose children are on the ride during the duration of the trip.
+3. Live chat
+    Parents can communicate with the driver theough the in-app chat service.
+4. Automatic Payment
+    Once a ride is complete, the parent's whose children are transported are automatically billed. (Not yet implemented)
 
 ## Contributors
 <p>
-  :mortar_board: <i>All participants in this project are graduate students in the <a href="https://www.concordia.ca/ginacody/computer-science-software-eng.html">Department of Computer Science and Software Engineering</a> <b>@</b> <a href="https://www.concordia.ca/">Concordia University</a></i> <br> <br>
+  :mortar_board: <i>All participants in this project are graduate students in the <a href="https://whttps://sces.strathmore.edu/">School of Computing and Engineering Sciences</a> <b>@</b> <a href="https://www.strathmore.edu/">Strathmore University</a></i> <br> <br>
   
-  :woman: <b>Divya Bhagavathiappan Shiva</b> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: <a>divya.bhagavathiappanshiva@mail.concordia.ca</a> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GitHub: <a href="https://github.com/divyabhagavathiappan">@divyabhagavathiappan</a> <br>
+   <b>Wayne Asava</b> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: <a>wayne.asava@strathmore.edu</a> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GitHub: <a href="https://github.com/AsavaAsava">@AsavaAsava</a> <br>
   
-  :woman: <b>Reethu Navale</b> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: <a>reethu.navale@mail.concordia.ca</a> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GitHub: <a href="https://github.com/reethunavale">@reethunavale</a> <br>
+  <b>Nathan Mbugua</b> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: <a>nathan.mbugua@strathmore.edu</a> <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GitHub: <a href="https://github.com/some-casual-coder">@some-casual-coder</a> <br>
 
-  :woman: <b>Mahsa Sadat Afzali Arani</b> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: <a>m_afzali93@yahoo.com</a> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GitHub: <a href="https://github.com/MahsaAfzali">@MahsaAfzali</a> <br>
-
-  :boy: <b>Mohammad Amin Shamshiri</b> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: <a>mohammadamin.shamshiri@mail.concordia.ca</a> <br>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GitHub: <a href="https://github.com/ma-shamshiri">@ma-shamshiri</a> <br>
 </p>
 
 <br>
-✤ <i>This was the final project for the course COMP 6321 - Machine Learning (Fall 2020), at <a href="https://www.concordia.ca/">Concordia University</a><i>
+✤ <i>This was the final project for the course ICS 2204 - CS Project 1, at <a href="https://www.strathmore.edu/">Concordia University</a><i>
