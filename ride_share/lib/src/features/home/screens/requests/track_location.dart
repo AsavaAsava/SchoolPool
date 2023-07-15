@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:ride_share/src/constants/colors.dart';
 
+import '../../../../../auth/secrets.dart';
+
 class LiveTrackingPage extends StatefulWidget {
   const LiveTrackingPage({Key? key}) : super(key: key);
 
@@ -57,7 +59,7 @@ class LiveTrackingPageState extends State<LiveTrackingPage> {
   void getPolyPoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyCEehjMmWkCmnxcrjOAa7i2LK6WAKXV5ak",
+      mapsAPIKey,
       PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
       PointLatLng(destination.latitude, destination.longitude),
     );
