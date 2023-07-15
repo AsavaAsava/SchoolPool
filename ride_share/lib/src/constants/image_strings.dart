@@ -6,3 +6,7 @@ const String tResetPwdScreenImage = "assets/images/reset_pwd.png";
 const String tForgotPwdScreenImage = "assets/images/forgot_pwd.png";
 const String tOTPScreenImage = "assets/images/enter_OTP.png";
 const String tProfilePic = "assets/images/profile.png";
+const String tcurrentloc = "assets/images/Pin_current_location.png";
+const String tpindest = "assets/images/Pin_destination.png";
+const String tpinsource = "assets/images/Pin_source.png";
+const String tbadge = "assets/images/Badge (2).png";
