@@ -16,9 +16,12 @@ import 'package:ride_share/src/features/home/screens/profile/edit_profile.dart';
 import 'package:ride_share/src/features/home/screens/requests/ride_request.dart';
 import 'package:ride_share/src/features/home/screens/ride/ride_registration.dart';
 import 'package:ride_share/src/features/home/screens/schedule/user_schedule.dart';
+import 'package:ride_share/src/models/ride_request_model.dart';
+import 'package:ride_share/src/repository/ride_repository.dart';
 
 import '../../../common_widgets/text_widget.dart';
 import '../../../constants/image_strings.dart';
+import '../../../models/offered_ride_model.dart';
 
 class NewHomeScreen extends StatefulWidget {
   const NewHomeScreen({Key? key}) : super(key: key);
@@ -27,9 +30,23 @@ class NewHomeScreen extends StatefulWidget {
   State<NewHomeScreen> createState() => _NewHomeScreenState();
 }
 
-class _NewHomeScreenState extends State<NewHomeScreen> {
-  String? _mapStyle;
+class CarInfo {
+  final String name;
+  final String model;
+  final double cash;
+  final String to;
 
+  CarInfo(this.name, this.model, this.cash, this.to);
+}
+
+var items = [
+  CarInfo('Nathan Mbugua', "Toyota Mark X", 350, "Makini School"),
+  CarInfo('Nathan Mbugua', "Toyota Mark X", 350, "Makini School"),
+  CarInfo('Wayne Asava', "Toyota Vitz", 350, "Starthmore University"),
+];
+
+class _NewHomeScreenState extends State<NewHomeScreen> {
+  final rideRepository = Get.put(RideRepository());
   MapController mapController = Get.put(MapController());
 
   late LatLng source;
@@ -40,10 +57,6 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
   @override
   void initState() {
     super.initState();
-
-    rootBundle.loadString('assets/map_style.txt').then((string) {
-      _mapStyle = string;
-    });
 
     // loadCustomMarker();
   }
@@ -58,6 +71,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       drawer: buildDrawer(),
       appBar: AppBar(
@@ -449,7 +463,7 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                 buildDrawerItem(
                     title: tRideRequests,
                     onPressed: () {
-                      Get.to(() =>  RideRequests());
+                      Get.to(() => RideRequests());
                     },
                     icon: const Icon(Icons.people_alt_outlined)),
 
@@ -791,6 +805,27 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
     return Container(
       height: 250,
       width: Get.width,
+      // child: FutureBuilder<List<OfferedRideModel>>(
+      //   future: rideRepository.allRides(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.done) {
+      //       if (snapshot.hasData) {
+      //         return ListView.builder(
+      //           itemBuilder: (ctx, i) {
+      //             return InkWell(
+      //               onTap: () {},
+      //               child: buildDriverCard(snapshot.data!, i),
+      //             );
+      //           },
+      //           itemCount: snapshot.data!.length,
+      //           scrollDirection: Axis.horizontal,
+      //         );
+      //       }
+      //     }
+      //     return Text("no data");
+      //   },
+      // ),
+
       child: StatefulBuilder(builder: (context, set) {
         return ListView.builder(
           itemBuilder: (ctx, i) {
@@ -806,7 +841,8 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
           itemCount: 5,
           scrollDirection: Axis.horizontal,
         );
-      }),
+      }
+      ),
     );
   }
 
@@ -815,18 +851,13 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
       margin: EdgeInsets.only(right: 8, left: 8, top: 4, bottom: 4),
       height: 170,
       width: 235,
-      decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                color: selected
-                    ? tSecondaryColor.withOpacity(0.2)
-                    : Colors.grey.withOpacity(0.2),
-                offset: Offset(0, 5),
-                blurRadius: 5,
-                spreadRadius: 1)
-          ],
-          borderRadius: BorderRadius.circular(12),
-          color: selected ? tSecondaryColor : Colors.grey),
+      decoration: BoxDecoration(boxShadow: const [
+        BoxShadow(
+            color: tSecondaryColor,
+            offset: Offset(0, 5),
+            blurRadius: 5,
+            spreadRadius: 1)
+      ], borderRadius: BorderRadius.circular(12), color: tSecondaryColor),
       child: Stack(
         children: [
           Container(
@@ -835,11 +866,12 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 textWidget(
-                    text: 'Nathan Mbugua',
+                    text:"Nathan Mbugua",
                     color: Colors.white,
                     fontWeight: FontWeight.w700),
                 textWidget(
-                    text: 'Toyota Mark X',
+                    text:
+                    "Toyota Mark X",
                     color: Colors.white,
                     fontWeight: FontWeight.w500),
                 SizedBox(
@@ -848,13 +880,13 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                       Column(
                         children: [
                           Text("Days"),
-                          Text("M and T gds dgshr"),
+                          Text("Mon, Tue"),
                         ],
                       ),
                       Column(
                         children: [
                           Text("Seats"),
-                          Text("3/4"),
+                          Text("4"),
                         ],
                       ),
                       Column(
@@ -866,7 +898,21 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
                     ],
                   ),
                 ),
-                ElevatedButton(onPressed: () {}, child: Text("REQUEST"))
+                ElevatedButton(
+                    onPressed: () {
+                      // final rideRequest = RideRequestModel(
+                      //     rideId: rides[index].id!,
+                      //     ownerId: rides[index].userId,
+                      //     requestedByUser: rides[index].userId,
+                      //     pickupLocation: 'Strathmore University, Ole Sangale Rd',
+                      //     seatsAvailable: rides[index].seatsAvailable,
+                      //     similarityScore: 1.0,
+                      //     acceptedStatus: false);
+                      // await rideRepository.makeRideRequest(rideRequest);
+                      // TODO get to success page or show modal and return
+
+                    },
+                    child: Text("REQUEST"))
               ],
             ),
           ),
@@ -880,41 +926,4 @@ class _NewHomeScreenState extends State<NewHomeScreen> {
       ),
     );
   }
-
-// buildPaymentCardWidget() {
-//   return Container(
-//     child: Row(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       children: [
-//         Image.asset(
-//           'assets/visa.png',
-//           width: 40,
-//         ),
-//         SizedBox(
-//           width: 10,
-//         ),
-//         DropdownButton<String>(
-//           value: dropdownValue,
-//           icon: const Icon(Icons.keyboard_arrow_down),
-//           elevation: 16,
-//           style: const TextStyle(color: Colors.deepPurple),
-//           underline: Container(),
-//           onChanged: (String? value) {
-//             // This is called when the user selects an item.
-//             setState(() {
-//               dropdownValue = value!;
-//             });
-//           },
-//           items: list.map<DropdownMenuItem<String>>((String value) {
-//             return DropdownMenuItem<String>(
-//               value: value,
-//               child: textWidget(text: value),
-//             );
-//           }).toList(),
-//         )
-//       ],
-//     ),
-//   );
-// }
 }

@@ -62,7 +62,7 @@ class OfferedRideModel {
       numberPlate: data["NumberPlate"],
       seatsAvailable: data["SeatsAvailable"],
       dayAndTimeAvailable: data["DayAndTimeAvailable"],
-      encodedPolyline: data["EncodedPolyLine"],
+      encodedPolyline: data["EncodedPolyLine"]
     );
   }
 }
