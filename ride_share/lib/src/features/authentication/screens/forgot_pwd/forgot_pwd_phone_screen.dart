@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ride_share/src/features/authentication/screens/forgot_pwd/forgot_pwd_otp_screen.dart';
+import 'package:ride_share/src/repository/authentication_repository.dart';
 
 import '../../../../common_widgets/form_header_widget.dart';
 import '../../../../constants/colors.dart';
@@ -54,8 +57,9 @@ class _ForgotPasswordPhoneScreenState extends State<ForgotPasswordPhoneScreen> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                              onPressed: () {
-
+                              onPressed: () async{
+                                await AuthenticationRepository.instance.phoneAuthentication(controller.text.trim());
+                                Get.to(() => ForgotPwdOTPScreen(phoneNo: controller.text.trim()));
                               },
                               child: const Text("Next")
                           ),
