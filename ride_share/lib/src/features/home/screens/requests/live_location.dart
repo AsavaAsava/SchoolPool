@@ -37,7 +37,7 @@ class LiveTrackingPageState extends State<LiveTrackingPage> {
   void getPolyPoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyCEehjMmWkCmnxcrjOAa7i2LK6WAKXV5ak",
+      mapsAPIKey,
       PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
       PointLatLng(destination.latitude, destination.longitude),
     );
