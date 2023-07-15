@@ -47,7 +47,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD56gtxaaG48IZqQAuQMZnRvWvqTJ5WbLM',
+    apiKey: '',
     appId: '1:943152405737:web:ae3cf64ad426bde0dce478',
     messagingSenderId: '943152405737',
     projectId: 'school-carpool-csp1',
@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCZy5aFxa7OGpgnAFvVX-ozsCZ71DJWCbA',
+    apiKey: '',
     appId: '1:943152405737:android:5457e3555963406fdce478',
     messagingSenderId: '943152405737',
     projectId: 'school-carpool-csp1',
@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCMCkbiuwOi3OKePytw8N2ptwHSEtBatzA',
+    apiKey: '',
     appId: '1:943152405737:ios:f1b1f4fc2facef5bdce478',
     messagingSenderId: '943152405737',
     projectId: 'school-carpool-csp1',

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::get('/upload',function(){
+return view('excel_upload_test');
+});
+Route::get('/upload',[UploadController::class,'process_file']);
 
 Route::middleware([
     'auth:sanctum',
