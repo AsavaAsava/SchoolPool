@@ -43,6 +43,22 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   adobe_xd: ^2.0.1
   flutter_svg: ^1.1.6
+  google_maps_flutter: ^2.3.0
+  fl_country_code_picker: ^0.1.4
+  firebase_core: ^2.14.0
+  firebase_auth: ^4.6.3
+  cloud_firestore: ^4.8.1
+  firebase_database: ^10.2.3
+  intl: ^0.17.0
+  local_auth: ^2.1.6
+  dbcrypt: ^2.0.0
+  email_auth: ^1.0.0
+  weekday_selector: ^1.1.0
+  geocoding: ^2.1.0
+  flutter_google_places: ^0.3.0
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  flutter_polyline_points: ^1.0.0
+  location: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +94,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+    - assets/
     - assets/images/
 
   # To add assets to your application, add an assets section, like this:

@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "943152405737",
+    "firebase_url": "https://school-carpool-csp1-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "school-carpool-csp1",
+    "storage_bucket": "school-carpool-csp1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943152405737:android:5457e3555963406fdce478",
+        "android_client_info": {
+          "package_name": "com.example.ride_share"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943152405737-dl3gep47gr3a3m6e6uhjfmctev8nq0rd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ride_share",
+            "certificate_hash": "0cef302226b6059fc5e61d390fbeeba8fc32c916"
+          }
+        },
+        {
+          "client_id": "943152405737-1ibrmd1ee903soduuo0cgvfoqag8k98n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZy5aFxa7OGpgnAFvVX-ozsCZ71DJWCbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943152405737-1ibrmd1ee903soduuo0cgvfoqag8k98n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943152405737-jheatv57d64h92jk6hlugo81ivhpqhq2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rideShare"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943152405737:android:1756b43b64699837dce478",
+        "android_client_info": {
+          "package_name": "com.school.testrun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943152405737-4igp2ltm5gqsco0stb3r06e52v12sha0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.school.testrun",
+            "certificate_hash": "0cef302226b6059fc5e61d390fbeeba8fc32c916"
+          }
+        },
+        {
+          "client_id": "943152405737-1ibrmd1ee903soduuo0cgvfoqag8k98n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZy5aFxa7OGpgnAFvVX-ozsCZ71DJWCbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943152405737-1ibrmd1ee903soduuo0cgvfoqag8k98n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943152405737-jheatv57d64h92jk6hlugo81ivhpqhq2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.rideShare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

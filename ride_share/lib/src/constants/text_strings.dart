@@ -40,3 +40,24 @@ const String tOtpSubTitle = "Verification";
 const String tOtpMessage = "Enter the verification code sent to\n";
 const String tOtpNotSent = "Haven't received a code?";
 const String tResendOtp = "Resend";
+
+
+const String tPickUpLocation = "Pickup Location";
+const String tRating = "Rating";
+const String tEditProfile = "Edit Profile";
+const String tPayment = "Payment";
+const String tMySchedule = "My Schedule";
+const String tSupport = "Support";
+const String tAbout = "About";
+const String tTripHistory = "Trip History";
+const String tRideRequests = "Ride Requests";
+const String tProfile = "Profile";
+const String tVerify = "Verify";
+const String tChange = "change";
+const String tLocations = "Locations";
+const String tAddHome = "Add a home location";
+const String tAddPickup = "Add a pickup location";
+const String tLanguage = "Language";
+const String tLanguageUK = "English - UK";
+const String tLogout = "Logout";
+const String tDeleteAcc = "Delete Account";
